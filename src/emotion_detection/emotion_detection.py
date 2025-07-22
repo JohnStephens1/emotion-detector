@@ -42,7 +42,7 @@ def get_emotion_eval(text):
         print("couldn't get a response")
         return {}
 
-    emotion_dict = json.loads(response)['emotionPredictions'][0]['emotion']
+    emotion_dict = json.loads(response_text)['emotionPredictions'][0]['emotion']
     dominant_emotion = max(emotion_dict, key=emotion_dict.get)
 
     result_dict['emotion_dict'] = emotion_dict

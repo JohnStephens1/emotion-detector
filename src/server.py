@@ -12,14 +12,13 @@ app = Flask(
 
 def get_fancy_output(input_text, emotion_dict):
     """formats the response to be clean and readable"""
-    prettified_emotion_dict = {'\n'.join([f"{key}: {val:.3f}%" for key, val in emotion_dict['emotion_dict'].items()])}
+    prettified_emotion_dict = '<br>'.join([f"{key.title()}: {val:.2f}%" for key, val in emotion_dict['emotion_dict'].items()])
 
     fancy_output = f"""
-    The dominant emotion for the given text is {emotion_dict['dominant_emotion']}.\n\n
-    Context:\n\n
-    Prompt:\n
-    {input_text}\n\n
-    Full Eval:\n
+    The dominant emotion for the given text is {emotion_dict['dominant_emotion']}.<br><br>
+    Prompt:<br>
+    {input_text}<br><br>
+    Full Eval:<br>
     {prettified_emotion_dict}
     """
 
