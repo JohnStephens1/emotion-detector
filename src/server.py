@@ -6,24 +6,34 @@ from EmotionDetection.emotion_detection import emotion_detector
 app = Flask("Emotion Detector")
 
 
+def get_fancy_output(input_text, emotion_dict):
+    """formats the response to be clean and readable"""
+    prettified_emotion_dict = {'\n'.join([f"{key}: {val:.3f}%" for key, val in emotion_dict['emotion_dict'].items()])}
+    
+    fancy_output = f"""
+    The dominant emotion for the given text is {emotion_dict['dominant_emotion']}.\n\n
+    Context:\n\n
+    Prompt:\n
+    {input_text}\n\n
+    Full Eval:\n
+    {prettified_emotion_dict}
+    """
+
+    return fancy_output
+
+
 @app.route("/emotionDetector")
 def emotion_detector_fask():
     """handles the flask routing, gets emotion dict based on query and returns formatted response"""
     text = request.args.get('textToAnalyze')
-    le_dict = emotion_detector(text)
+    emotion_dict = emotion_detector(text)
 
-    if le_dict['dominant_emotion'] is None:
-        return "Invalid text! Please try again!."
+    if not emotion_dict:
+        return "couldn't get a response"
 
-    return (
-        "For the given statement, the system response is "
-        f"'anger': {le_dict['anger']}, "
-        f"'disgust': {le_dict['disgust']}, "
-        f"'fear': {le_dict['fear']}, "
-        f"'joy': {le_dict['joy']} "
-        f"and 'sadness': {le_dict['sadness']}. "
-        f"The dominant emotion is {le_dict['dominant_emotion']}"
-    )
+    fancy_response = get_fancy_output(text, emotion_dict)
+
+    return fancy_response
 
 
 @app.route("/")
@@ -32,5 +42,5 @@ def render_index_page():
     return render_template('index.html')
 
 
-if __name__ == "__main__":
+def run_server():
     app.run(host="0.0.0.0", port=5000)
