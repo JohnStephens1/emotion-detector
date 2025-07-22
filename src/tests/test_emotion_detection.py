@@ -1,4 +1,4 @@
-from EmotionDetection.emotion_detection import emotion_detector
+from src.emotion_detection import emotion_detection
 import unittest
 
 class TestEmotionDetector(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestEmotionDetector(unittest.TestCase):
         }
 
         for key, val in tests.items():
-            result = emotion_detector(key)['dominant_emotion']
+            result = emotion_detection.get_emotion_eval(key)['dominant_emotion']
             self.assertEqual(result, val)
 
 unittest.main()
