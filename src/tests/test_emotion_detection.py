@@ -1,8 +1,9 @@
 from src.emotion_detection import emotion_detection
 import unittest
 
-class TestEmotionDetector(unittest.TestCase):
-    def test_emotion_detector(self):
+
+class TestEmotionDetection(unittest.TestCase):
+    def test_get_emotion_eval(self):
         tests = {
             "I am glad this happened": "joy",
             "I am really mad about this": "anger",
@@ -15,4 +16,6 @@ class TestEmotionDetector(unittest.TestCase):
             result = emotion_detection.get_emotion_eval(key)['dominant_emotion']
             self.assertEqual(result, val)
 
-unittest.main()
+
+if __name__ == '__main__':
+    unittest.main()
