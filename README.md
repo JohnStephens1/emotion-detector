@@ -1,6 +1,6 @@
 # Emotion Detector
 
-![le pic](readme_content/neat_capture.png "Emotion Detection")
+![le pic](readme_content/neat_capture.PNG "Emotion Detection")
 
 ## About
 This project was developed as part of the Coursera course:<br>
